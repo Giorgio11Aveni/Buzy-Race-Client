@@ -1,0 +1,71 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.buzyrace;
+
+import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
+
+/**
+ *
+ * @author aveni
+ */
+public class Zattera extends Oggetto implements Runnable {
+    
+    
+    private BufferedImage zattera = null;
+    private Livello2 game;
+    private int x;
+    
+
+    public Zattera(BufferedImage zattera, Livello2 game, int x) {
+        
+        super(80,100,-200,4);
+        this.game = game;
+        this.zattera = zattera;
+        this.x = x;
+    }
+
+    @Override
+    void aggiorna() {
+        
+        y+=velocita;
+       
+    }
+    
+
+    @Override
+    void disegna(Graphics g) {
+        
+        g.drawImage(zattera, x, y, larghezza, altezza, game);
+    }
+
+    @Override
+    public Rectangle getBordi() {
+       return new Rectangle (x,y,larghezza,altezza);
+    }
+
+     @Override
+    public void run(){
+        
+        attivo = true;
+        while (attivo){
+                aggiorna();
+                
+            try {
+                Thread.sleep(20);
+            } catch (InterruptedException ex) {
+                java.util.logging.Logger.getLogger(Auto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            }
+                	
+            
+        }
+       
+        
+    }
+}
